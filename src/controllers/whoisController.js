@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
-
-exports.getUsers = async (req, res) => {
-    const directoryPath = path.join(__dirname, "../user_files"); // Change to your folder path
+const directoryPath = path.join(__dirname, "../user_files");
+exports.getAll = async (req, res) => {
+     // Change to your folder path
 
     try {
         const files = await fs.promises.readdir(directoryPath);
@@ -80,20 +80,18 @@ const parseContent = (content, filename) => {
 };
 
 
-const directoryPath = path.join(__dirname, "../user_files"); // Folder with domain files
-
-exports.getDomainInfo = (req, res) => {
+exports.getDomainInfo = async(req, res) => {
     const domain_name = req.query.domain_name; 
     if (!domain_name) {
         return res.status(400).json({ error: "Domain name is required" });
     }
 
     try {
-        const files = fs.readdirSync(directoryPath);
+        const files = await fs.readdirSync(directoryPath);
 
         for (const file of files) {
             const filePath = path.join(directoryPath, file);
-            const content = fs.readFileSync(filePath, "utf8");
+            const content =await fs.readFileSync(filePath, "utf8");
 
             const domainRegex = new RegExp(`Domain Name:\\s*${domain_name}`, "i");
             if (domainRegex.test(content)) {
