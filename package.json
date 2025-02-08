@@ -1,0 +1,21 @@
+{
+  "name": "xaptagon",
+  "version": "1.0.0",
+  "description": "Assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Sandaru",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9",
+    "xaptagon": "file:"
+  },
+  "devDependencies": {
+    "axios": "^1.7.9",
+    "jest": "^29.7.0"
+  }
+}
