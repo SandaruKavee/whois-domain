@@ -2,10 +2,10 @@ const axios = require("axios");
 const path = require("path");
 const fs = require("fs");
 const API_URL = "http://localhost:3000/domains/all"; 
-const TOTAL_REQUESTS = 100000; 
+const TOTAL_REQUESTS = 300000; //this will run 100000 times per each domain 
 
 const RESULT_FILE = path.join(__dirname, "testResult.txt");
-jest.setTimeout(600000); // Set timeout to 10 minutes
+jest.setTimeout(1200000); // Set timeout to 20 minutes
 
 describe("API Performance Test", () => {
     test(`Measure average response time over ${TOTAL_REQUESTS} sequential requests`, async () => {
