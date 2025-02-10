@@ -3,12 +3,10 @@ const path = require('path');
 const readline = require('readline');
 const directoryPath = path.join(__dirname, "../user_files");
 exports.getAll = async (req, res) => {
-     // Change to your folder path
 
     try {
         const files = await fs.promises.readdir(directoryPath);
 
-        // Batched processing to limit concurrency
         const batchSize = 10; // Process 10 files at a time
         let parsedData = [];
 
@@ -19,7 +17,7 @@ exports.getAll = async (req, res) => {
                 const filePath = path.join(directoryPath, file);
                 const content = await readFileStream(filePath); // Read file stream
 
-                const parsedFile = parseContent(content, file); // Parsing logic
+                const parsedFile = parseContent(content, file); // Parsing
                 parsedData.push(parsedFile);
             });
 
@@ -41,15 +39,15 @@ const readFileStream = (filePath) => {
         let content = '';
 
         readStream.on('data', chunk => {
-            content += chunk; // Accumulate file content
+            content += chunk; 
         });
 
         readStream.on('end', () => {
-            resolve(content); // Return file content once finished
+            resolve(content); 
         });
 
         readStream.on('error', (err) => {
-            reject(err); // Handle errors
+            reject(err); 
         });
     });
 };
@@ -58,7 +56,7 @@ const readFileStream = (filePath) => {
 const parseContent = (content, filename) => {
   const patterns = {
     domain_name: /Domain Name:\s*(.+)/i,
-    registrar: /Registrar:\s*([\s\S]+?)(?=\n{2,}|\n[A-Z])/i,  // Fix applied here
+    registrar: /Registrar:\s*([\s\S]+?)(?=\n{2,}|\n[A-Z])/i,
     updated_date: /Updated Date:\s*(.+)/i,
     creation_date: /Creation Date:\s*(.+)/i,
     status: /Status:\s*(.+)/i
@@ -66,7 +64,7 @@ const parseContent = (content, filename) => {
 
     const extractData = (pattern, text) => {
         const match = text.match(pattern);
-        return match ? match[1].trim().replace(/\r?\n\s*/g, " ") : "";  // Return "N/A" if not found
+        return match ? match[1].trim().replace(/\r?\n\s*/g, " ") : "";  // Return "" if not found
     };
 
     return {
